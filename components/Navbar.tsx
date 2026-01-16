@@ -28,7 +28,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${pathname === '/' && !isScrolled ? 'transparent' : ''}`}>
       <div className="container nav-container">
         <Link href="/" className="logo">
           Care<span className="dot">.xyz</span>
@@ -85,7 +85,12 @@ export default function Navbar() {
         .logo {
           font-size: 1.5rem;
           font-weight: 800;
-          color: ${pathname === '/' && !isScrolled ? 'white' : 'var(--dark)'};
+          color: var(--dark);
+          transition: color 0.3s ease;
+        }
+        
+        .navbar.transparent .logo {
+          color: white;
         }
 
         .dot {
@@ -100,8 +105,12 @@ export default function Navbar() {
 
         .nav-link {
           font-weight: 500;
-          color: ${pathname === '/' && !isScrolled ? 'rgba(255,255,255,0.9)' : 'var(--dark)'};
+          color: var(--dark);
           transition: color 0.2s;
+        }
+        
+        .navbar.transparent .nav-link {
+          color: rgba(255, 255, 255, 0.9);
         }
 
         .nav-link:hover, .nav-link.active {
