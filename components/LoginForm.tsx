@@ -6,65 +6,68 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
 export default function LoginForm() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const { login } = useAuth();
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get('callbackUrl') || '/';
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login } = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!email || !password) {
-            setError('Please fill in all fields');
-            return;
-        }
-        // Mock login success
-        login({ name: email.split('@')[0], email });
-        router.push(callbackUrl);
-    };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      setError('Please fill in all fields');
+      return;
+    }
+    // Mock login success
+    login({ name: email.split('@')[0], email });
+    router.push(callbackUrl);
+  };
 
-    return (
-        <div className="auth-container">
-            <div className="card auth-card">
-                <h2 className="heading-lg" style={{ textAlign: 'center', marginBottom: '2rem' }}>Welcome Back</h2>
-                {error && <div className="error-msg">{error}</div>}
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label>Email Address</label>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="form-control"
-                            placeholder="name@example.com"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="form-control"
-                            placeholder="••••••"
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
-                        Login
-                    </button>
-                </form>
-                <p style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                    Don't have an account? <Link href="/register" className="text-highlight">Register</Link>
-                </p>
-                <div className="divider">OR</div>
-                <button className="btn btn-outline" style={{ width: '100%' }} type="button" onClick={() => login({ name: 'Google User', email: 'google@example.com' })}>
-                    Sign in with Google
-                </button>
-            </div>
+  return (
+    <div className="auth-container">
+      <div className="card auth-card">
+        <h2 className="heading-lg" style={{ textAlign: 'center', marginBottom: '2rem' }}>Welcome Back</h2>
+        {error && <div className="error-msg">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-control"
+              placeholder="name@example.com"
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="form-control"
+              placeholder="••••••"
+            />
+          </div>
+          <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+            Login
+          </button>
+        </form>
+        <p style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+          Don't have an account? <Link href="/register" className="text-highlight">Register</Link>
+        </p>
+        <div className="divider">OR</div>
+        <button className="btn btn-outline" style={{ width: '100%' }} type="button" onClick={() => {
+          login({ name: 'Google User', email: 'google@example.com' });
+          router.push(callbackUrl);
+        }}>
+          Sign in with Google
+        </button>
+      </div>
 
-            <style jsx>{`
+      <style jsx>{`
         .auth-container {
           display: flex;
           justify-content: center;
@@ -126,6 +129,6 @@ export default function LoginForm() {
         .divider::before { left: 0; }
         .divider::after { right: 0; }
       `}</style>
-        </div>
-    );
+    </div>
+  );
 }

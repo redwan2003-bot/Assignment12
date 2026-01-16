@@ -33,22 +33,22 @@ export default function Navbar() {
         <Link href="/" className="logo">
           Care<span className="dot">.xyz</span>
         </Link>
-        
+
         <div className="nav-links">
           {navLinks.map((link) => (
-            <Link 
-              key={link.href} 
+            <Link
+              key={link.href}
               href={link.href}
               className={`nav-link ${pathname === link.href ? 'active' : ''}`}
             >
               {link.name}
             </Link>
           ))}
-          
+
           {user ? (
-             <button onClick={() => { localStorage.removeItem('care_user'); window.location.reload(); }} className="btn btn-outline btn-sm">
-               Logout
-             </button>
+            <button onClick={() => { localStorage.removeItem('care_user'); window.location.reload(); }} className="btn btn-outline btn-sm">
+              Logout
+            </button>
           ) : (
             <Link href="/login" className="btn btn-primary btn-sm">
               Login
@@ -85,7 +85,7 @@ export default function Navbar() {
         .logo {
           font-size: 1.5rem;
           font-weight: 800;
-          color: var(--dark);
+          color: ${pathname === '/' && !isScrolled ? 'white' : 'var(--dark)'};
         }
 
         .dot {
@@ -100,7 +100,7 @@ export default function Navbar() {
 
         .nav-link {
           font-weight: 500;
-          color: var(--dark);
+          color: ${pathname === '/' && !isScrolled ? 'rgba(255,255,255,0.9)' : 'var(--dark)'};
           transition: color 0.2s;
         }
 
